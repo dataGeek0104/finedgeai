@@ -87,3 +87,55 @@ To validate our design choices and draw inspiration, we explored public projects
 - **Enterprise Financial Data RAG System (Blog)** – *Multi-source Financial Assistant with LangChain.* James Li’s article describes building an enterprise-level financial analysis assistant using a three-layer design (data ingestion, RAG analysis, presentation) ([dev.to](https://dev.to/jamesli/build-an-enterprise-level-financial-data-analysis-assistant-multi-source-data-rag-system-practice-2c2h#:~:text=,to integrate new analysis models)) ([dev.to](https://dev.to/jamesli/build-an-enterprise-level-financial-data-analysis-assistant-multi-source-data-rag-system-practice-2c2h#:~:text=,conclusion goes through multiple verifications)). It emphasizes real-time data ingestion, parallel processing of analysis tasks, and converting complex data into user-friendly answers. Our project follows the same fundamental ideas on a smaller scale, and this reference provides architectural guidance and best practices (like token management and streaming responses for low latency).
 
 Each of these resources provided insight into building powerful AI-driven finance applications. By combining their approaches with the requirements at hand, we crafted a project blueprint that is up-to-date and grounded in proven techniques ([python.langchain.com](https://python.langchain.com/docs/tutorials/rag/#:~:text=A typical RAG application has,two main components)). The result is a comprehensive CLI tool where a robust data pipeline, an intelligent chatbot, and an efficient RAG-based knowledge base all come together – empowering users to navigate financial data and get answers with the help of generative AI.
+
+
+
+## 6. Project Prospectus
+
+
+### a. Components
+
+#### i. Data Pipeline
+- **Objective:** Ingest, preprocess, and index financial datasets.
+- **Sources:** Stock market APIs, cryptocurrency exchanges, economic indicators.
+- **Processing Steps:**
+  - Fetch data (CSV, JSON, APIs).
+  - Clean data (remove duplicates with sets, handle missing values).
+  - Transform data (calculate returns, technical indicators).
+  - Vectorize textual data and store embeddings in a vector DB (Chroma, FAISS).
+- **Technologies:** Multi-threading, Multi-processing, Logging, JSON handling, Context Managers.
+
+#### ii. CLI Chatbot Interface
+- **Objective:** Provide interactive, conversational Q&A powered by Generative AI.
+- **Features:**
+  - Interactive CLI-based chat interface.
+  - Conversational memory via LangChain.
+  - User commands for data updates and summaries.
+- **Technologies:** Decorators for commands, Exceptions for robust error handling, Logging interactions.
+
+#### iii. Knowledge Base (RAG with LangGraph)
+- **Objective:** Enable contextually accurate retrieval and responses through a vector-indexed knowledge base.
+- **Workflow:**
+  - User queries converted to embeddings.
+  - Retrieve relevant document chunks.
+  - Generate responses using retrieved data with LangGraph orchestration.
+- **Technologies:** Generators for streaming responses, Python collections, itertools for efficient data handling.
+
+
+### b. CLI Usage Examples
+
+- Run data ingestion:
+```
+python finance_gpt.py --ingest data.yaml
+```
+
+- Start interactive chat:
+```
+python finance_gpt.py
+```
+
+- Execute commands:
+```
+:refresh  # Update data
+:summaries  # Display stored summaries
+```
