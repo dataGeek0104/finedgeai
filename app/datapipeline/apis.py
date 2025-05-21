@@ -1,4 +1,3 @@
-# app/vector_apis.py
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from typing import AsyncGenerator
