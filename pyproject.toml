@@ -1,16 +1,24 @@
 [project]
 name = "finedgeai"
-version = "0.1.0"
+version = "0.0.0"
 description = ""
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    {name = "Aman Sharma",email = "aman.sharma562993@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<4.0"
 dependencies = [
     "requests (>=2.32.3,<3.0.0)",
     "fastapi (>=0.115.12,<0.116.0)",
-    "uvicorn (>=0.34.2,<0.35.0)"
+    "uvicorn (>=0.34.2,<0.35.0)",
+    "sqlalchemy (>=2.0.41,<3.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "pgvector (>=0.4.1,<0.5.0)",
+    "openai (>=1.79.0,<2.0.0)",
+    "langchain-community (>=0.3.24,<0.4.0)",
+    "langchain-openai (>=0.3.17,<0.4.0)",
+    "asyncpg (>=0.30.0,<0.31.0)",
+    "langchain-google-genai (>=2.1.4,<3.0.0)"
 ]
 
 
