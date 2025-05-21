@@ -1,4 +1,3 @@
-# app/data_pipeline.py
 import os
 import asyncio
 from datetime import datetime, timedelta
