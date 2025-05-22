@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, UUID, String, Float, Date
 from sqlalchemy.orm import declarative_base
 from pgvector.sqlalchemy import Vector
 
@@ -10,7 +10,7 @@ class StockPrice(Base):
     __tablename__ = "stock_prices"
     __table_args__ = {"schema": SCHEMA_NAME}
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(UUID, primary_key=True, index=True)
     ticker = Column(String, index=True)
     date = Column(Date, index=True)
     open = Column(Float)

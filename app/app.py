@@ -1,7 +1,15 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, APIRouter
-from .types import HealthCheckResponse
 from .datapipeline.init_db import init_db
 from .datapipeline.apis import pipeline_router, vector_router
+from .core.apis import core_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
+
 
 # Initialize app globally so uvicorn can discover it
 app = FastAPI(
@@ -11,24 +19,10 @@ app = FastAPI(
     redoc_url="/api/v0/redoc",
 )
 
-api_router = APIRouter(prefix="/api/v0")
+api_router = APIRouter(prefix="/api/v0", lifespan=lifespan)
 
-app.include_router(pipeline_router)
-app.include_router(vector_router)
+api_router.include_router(core_router)
+api_router.include_router(pipeline_router)
+api_router.include_router(vector_router)
 
-
-@app.on_event("startup")
-async def on_startup():
-    await init_db()
-
-
-@app.get(
-    "/health-check",
-    response_model=HealthCheckResponse,
-    description="Checking health of the application.",
-    tags=["Root"],
-)
-async def health_check():
-    return HealthCheckResponse(
-        name=app.title, version=app.version, message="App is working fine!"
-    )
+app.include_router(api_router)
