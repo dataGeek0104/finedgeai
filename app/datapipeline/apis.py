@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
-from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 import openai
 
@@ -8,15 +7,11 @@ from .init_db import AsyncSessionLocal
 from .pipeline import async_batch_ingest_prices, async_embed_new_records, embeddings
 from .models import StockPrice
 from .types import VectorSearchResponse
+from .init_db import get_db
 
 tags = ["Data Pipeline"]
 pipeline_router = APIRouter(prefix="/pipeline", tags=tags)
 vector_router = APIRouter(prefix="/vector", tags=tags)
-
-
-async def get_db() -> AsyncGenerator:
-    async with AsyncSessionLocal() as session:
-        yield session
 
 
 @pipeline_router.get("/batch/{ticker}")

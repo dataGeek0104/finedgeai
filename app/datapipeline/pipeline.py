@@ -1,6 +1,7 @@
 import os
 import asyncio
 from datetime import datetime, timedelta
+from uuid import uuid4
 
 import httpx
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
@@ -48,6 +49,7 @@ async def async_batch_ingest_prices(
         async with session.begin():
             for r in data:
                 record = StockPrice(
+                    id=uuid4(),
                     ticker=ticker,
                     date=datetime.fromisoformat(str(r["time"]).split("T")[0]).date(),
                     open=r["open"],
@@ -84,8 +86,10 @@ async def streaming_stub(ticker: str, poll_interval_sec: int = 60):
         # In real life, swap for a websocket or message-broker client
         await async_batch_ingest_prices(
             ticker,
-            start_date=(datetime.utcnow() - timedelta(days=1)).date().isoformat(),
-            end_date=datetime.utcnow().date().isoformat(),
+            start_date=(datetime.now(datetime.timezone.utc) - timedelta(days=1))
+            .date()
+            .isoformat(),
+            end_date=datetime.now(datetime.timezone.utc).date().isoformat(),
             interval="minute",
         )
         await async_embed_new_records()
