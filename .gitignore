@@ -1,2 +1,6 @@
 # environment variables
 .env
+
+# pytest coverage
+.coverage
+coveragereport.xml
