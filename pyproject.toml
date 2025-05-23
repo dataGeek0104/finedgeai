@@ -23,7 +23,8 @@ dependencies = [
     "pytest-asyncio (>=0.26.0,<0.27.0)",
     "httpx (>=0.28.1,<0.29.0)",
     "aiosqlite (>=0.21.0,<0.22.0)",
-    "faker (>=37.3.0,<38.0.0)"
+    "faker (>=37.3.0,<38.0.0)",
+    "pysonar (>=1.0.1.1548,<2.0.0.0)"
 ]
 
 
@@ -34,4 +35,3 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^6.1.1"
 coverage = "^7.8.1"
-
