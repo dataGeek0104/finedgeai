@@ -15,15 +15,7 @@ from app.datapipeline.models import Base
 TEST_DB_URL = os.getenv("PG_TEST_DB_URL").encode("utf-8").decode("unicode_escape")
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    # Needed for async tests in pytest
-    loop = asyncio.get_event_loop()
-    yield loop
-    loop.close()
-
-
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture
 async def test_engine():
     engine = create_async_engine(TEST_DB_URL, echo=False, future=True)
     async with engine.begin() as conn:
