@@ -1,11 +1,13 @@
 from app.datapipeline.types import VectorSearchResponse
 from faker import Faker
 from datetime import date
+import pytest
 
 fake = Faker()
 
 
-def test_vector_search_response_model():
+@pytest.mark.asyncio
+async def test_vector_search_response_model():
     model = VectorSearchResponse(
         ticker="TEST",
         date=date(1990, 1, 1),
